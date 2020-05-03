@@ -29,7 +29,7 @@ public class Algorithms {
 				trav.add(vertex);
 				visited[indexV] = true;
 				
-				List<V> adjacents = g.getvertexAdjacent(vertex);
+				List<V> adjacents = g.getVertexAdjacent(vertex);
 				stack.addAll(adjacents);
 			}
 		}

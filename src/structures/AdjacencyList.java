@@ -15,11 +15,14 @@ public class AdjacencyList <V> implements Graph<V> {
 	
 	private Map<V, Integer> vertices;
 	
+	private boolean isDirected;
 	
 	
 	
-	public AdjacencyList() {
+	
+	public AdjacencyList(boolean isDirected) {
 		
+		this.isDirected = isDirected;
 		adjacencyList = new ArrayList<List<Duplex<V, Integer>>>();
 		vertices = new HashMap<V, Integer>();
 	}
@@ -42,7 +45,7 @@ public class AdjacencyList <V> implements Graph<V> {
 	}
 
 	@Override
-	public List<V> getvertexAdjacent(V vertex) {
+	public List<V> getVertexAdjacent(V vertex) {
 		
 		List<V> adjacent = new ArrayList<V>();
 		
@@ -55,6 +58,78 @@ public class AdjacencyList <V> implements Graph<V> {
 		
 		return adjacent;
 	}
-	
 
+	@Override
+	public boolean addVertex(V v) {
+		vertices.put(v, vertices.size());
+		
+		return true;
+	}
+
+	@Override
+	public void removeV(V v) {
+		int pos = vertices.get(v);
+		
+		adjacencyList.remove(pos);
+		
+		for(int i=0; i<adjacencyList.size(); i++) {
+			List<Duplex<V, Integer>> trans = adjacencyList.get(i);
+			for(int j=0; j<trans.size(); j++) {
+				Duplex<V, Integer> dupla = trans.get(j);
+				if(dupla.getE1().equals(v)) trans.remove(j);
+			}
+		}
+		
+		vertices.remove(v);
+	}
+
+	@Override
+	public boolean addEdge(V u, V v) {
+		int pos = vertices.get(v);
+		List<Duplex<V, Integer>> adj = adjacencyList.get(pos);
+		
+		adj.add(new Duplex<V, Integer>(u, null));
+		
+		if(!direct()) {
+			pos = vertices.get(u);
+			adj = adjacencyList.get(pos);
+			
+			adj.add(new Duplex<V, Integer>(v, null));
+		}
+		
+		return true;
+	}
+
+	@Override
+	public void removeE(V u, V v) {
+		List<Duplex<V, Integer>> ad = adjacencyList.get(vertices.get(v));
+		boolean ready = false;
+		
+		for(int i=0; i<ad.size() && !ready; i++) {
+			if(ad.get(i).getE1().equals(u)) {
+				ad.remove(i);
+				ready = true;
+			}	
+		}
+		
+		if(!isDirected) {
+			ad = adjacencyList.get(vertices.get(u));
+			ready = false;
+			
+			for(int i=0; i<ad.size() && !ready; i++) {
+				if(ad.get(i).getE1().equals(v)) {
+					ad.remove(i);
+					ready = true;
+				}
+			}
+		}
+	}
+
+	@Override
+	public boolean direct() {
+		return isDirected;
+	}
+	
+	
+	
 }
