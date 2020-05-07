@@ -12,7 +12,10 @@ public interface Graph<V> {
 	
 	public void removeE(V u, V v);
 	
+	
 	public List<V> bfs(V v);
+	
+	public int[][] Kruskal(int[][] p);
 	
 	public int getVertexSize();
 	

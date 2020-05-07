@@ -9,6 +9,8 @@ public class AdjacencyList <V> implements Graph<V> {
 	
 	private Algorithms alg;
 	
+	public final static int DEFAULT_SIZE = 18;
+	
 	private List<List<Duplex< V , Integer>>> adjacencyList;
 	
 	private Map<Integer, V> invVertices;
@@ -17,6 +19,7 @@ public class AdjacencyList <V> implements Graph<V> {
 	
 	private boolean isDirected;
 	
+	private int[][] weightedMatrix;
 	
 	
 	
@@ -25,6 +28,7 @@ public class AdjacencyList <V> implements Graph<V> {
 		this.isDirected = isDirected;
 		adjacencyList = new ArrayList<List<Duplex<V, Integer>>>();
 		vertices = new HashMap<V, Integer>();
+		weightedMatrix = new int[18][18];
 	}
 	
 	@Override
@@ -125,10 +129,17 @@ public class AdjacencyList <V> implements Graph<V> {
 		}
 	}
 
+
+
 	@Override
 	public boolean direct() {
 		return isDirected;
 	}
+	@Override
+	public int[][] Kruskal(int[][] p) {
+		return (vertices.size() != 0) ? Algorithms.Kruskal(weightedMatrix) : null;
+	}
+	
 	
 	
 	
