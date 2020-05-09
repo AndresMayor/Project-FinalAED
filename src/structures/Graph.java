@@ -15,7 +15,10 @@ public interface Graph<V> {
 	
 	public List<V> bfs(V v);
 	
-	public int[][] Kruskal(int[][] p);
+	public int[][] Kruskal(int[][] matrix);
+	
+	
+	public int[] Prim(int[][] matrix);
 	
 	public int getVertexSize();
 	

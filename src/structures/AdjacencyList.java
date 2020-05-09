@@ -139,6 +139,10 @@ public class AdjacencyList <V> implements Graph<V> {
 	public int[][] Kruskal(int[][] p) {
 		return (vertices.size() != 0) ? Algorithms.Kruskal(weightedMatrix) : null;
 	}
+	@Override
+	public int[] Prim(int[][] p) {
+		return (vertices.size() != 0) ? Algorithms.prim(weightedMatrix) : null;
+	}
 	
 	
 	

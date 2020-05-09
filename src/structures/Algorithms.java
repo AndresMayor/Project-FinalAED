@@ -110,6 +110,46 @@ public class Algorithms {
 				return MST;
 	}
 	
+	private static int minIndex(int[] distance, boolean[] visited) {
+		int min = Integer.MAX_VALUE;
+		int index = -1;
+
+		for (int i = 0; i < distance.length; i++)
+			if (visited[i] == false && distance[i] <= min) {
+				min = distance[i];
+				index = i;
+			}
+
+		return index;
+	}
+	
+	
+	public static int [] prim(int [][] matrix) {
+		
+		int[] mat = new int[matrix.length];
+		boolean[] inMat = new boolean [matrix.length];
+		int[] weight = new int[matrix.length];
+		
+		for (int i = 0 ; i<matrix.length;i++) {
+			weight[i] = Integer.MAX_VALUE;
+		}
+		
+		weight[0]=0;
+		mat[0]=-1;
+		
+		for (int i=0 ;i <matrix.length-1;i++) {
+			int u =minIndex(weight,inMat);
+			inMat[u]=true;
+			for(int j = 0; j<matrix.length;j++) {
+				if ( matrix[u][j]!= 0 && inMat[j]==false && matrix[u][j] < weight[j] ) {
+					mat[j]=u;
+					weight[j]=matrix[u][j];
+				}
+			}
+		}
+		return weight;
+		
+	}
 	
 	
 	
