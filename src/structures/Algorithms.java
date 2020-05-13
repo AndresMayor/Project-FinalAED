@@ -2,7 +2,9 @@ package structures;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Algorithms {
@@ -10,9 +12,13 @@ public class Algorithms {
 	
 	
 	public static <V> List<V> bfs(Graph<V> g, V v){
-		return traversal(g, v, new Stack<>());
+		return traversalbfs(g, v, new  LinkedList<V>());
 	}
 	
+	
+	public static <V> List<V> dfs(Graph<V> g, V v) {
+		return traversal(g, v, new Stack<V>());
+	}
 	
 
 	private static <V> List<V> traversal(Graph<V> g, V v, Stack<V> stack){
@@ -39,6 +45,29 @@ public class Algorithms {
 		return trav;
 	}
 	
+	
+	private static <V> List<V> traversalbfs(Graph<V> g, V v, Queue<V> ds) {
+		List<V> trav = new ArrayList<>();
+
+		V vertex = v;
+		ds.add(vertex);
+
+		boolean[] visited = new boolean[g.getVertexSize()];
+
+		while (!ds.isEmpty()) {
+			vertex = ds.poll();
+			int indexV = g.getIndex(vertex);
+
+			if (!visited[indexV]) {
+				trav.add(vertex);
+				visited[indexV] = true;
+
+				List<V> adjacents = g.getVertexAdjacent(vertex);
+				ds.addAll(adjacents);
+			}
+		}
+		return trav;
+	}
 	public static int[][] Kruskal(int[][] p) {
 		
 		Disjointset<Integer> set = new Disjointset<>();
@@ -149,6 +178,60 @@ public class Algorithms {
 		}
 		return weight;
 		
+	}
+	
+	public static <V> int [] dijkstra (int v,int[][] g) {
+		
+		boolean [] visted = new boolean[g.length];
+		int [] distance = new int[g.length];
+		
+		for (int i = 0;i<distance.length;i++) {
+			distance[i]=Integer.MAX_VALUE;
+			
+		}
+		distance[v]=0;
+		
+		for (int i = 0;i<g.length-1;i++) {
+			int u =minIndex(distance,visted);
+			
+			visted[u]=true;
+			
+			for (int j =0 ;j<g.length;j++) {
+				if (!visted[j] && g[u][j] != 0 && distance[u] != Integer.MAX_VALUE && distance[u] + g[u][j] < distance[j]) {
+					distance[j] = distance[u] + g[u][j];
+			}
+
+			}
+		}
+		return distance;
+	}
+	
+	
+	
+	public static <V> int[][] floydWarshall(int [][] w){
+		
+		int v = 0;
+		int [][] D =w;
+	
+		
+		for (int k = 0 ;k < w.length;k ++) {
+			for (int i = 0; i< w.length;i++) {
+				for (int j=0;j<w.length;j++) {
+					if (j != k || i != k) {
+						if(D[i][k]!= Integer.MAX_VALUE && D[k][j]!=Integer.MAX_VALUE) {
+							
+							v=D[i][k]+D[k][j];
+							
+							if (D[i][j]>v) {
+								D[i][j] = v;
+							}
+						}
+					}
+				}
+			}
+			
+		}
+		return D;
 	}
 	
 	

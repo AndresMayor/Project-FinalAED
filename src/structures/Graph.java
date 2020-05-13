@@ -17,6 +17,7 @@ public interface Graph<V> {
 	
 	public int[][] Kruskal(int[][] matrix);
 	
+	public List<V> dfs(V v);
 	
 	public int[] Prim(int[][] matrix);
 	
@@ -28,5 +29,11 @@ public interface Graph<V> {
 	public List<V> getVertexAdjacent(V vertex);
 	
 	public boolean direct();
+	
+	public int[] dijkstra(V v);
+	
+	public int[][] floydWarshall();
+	
+	
 
 }

@@ -143,8 +143,22 @@ public class AdjacencyList <V> implements Graph<V> {
 	public int[] Prim(int[][] p) {
 		return (vertices.size() != 0) ? Algorithms.prim(weightedMatrix) : null;
 	}
+	@Override
+	public int[][] floydWarshall() {
+		return (vertices.size() != 0) ? Algorithms.floydWarshall(weightedMatrix) : null;
 	
-	
-	
+	}
+
+	@Override
+	public int[] dijkstra(V v) {
+		// TODO Auto-generated method stub
+		return (vertices.size() != 0) ? Algorithms.dijkstra(vertices.get(v), weightedMatrix) : null;
+	}
+
+	@Override
+	public List<V> dfs(V v) {
+		// TODO Auto-generated method stub
+		return (vertices.size() != 0) ? Algorithms.dfs(this, invVertices.get(0)) : null;
+	}
 	
 }
