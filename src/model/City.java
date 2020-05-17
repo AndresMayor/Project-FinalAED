@@ -4,10 +4,20 @@ public class City {
 	
 	private String name;
 	private String countryName;
+	private int id;
 	
-	public City(String name, String countryName) {
+	public City(String name, String countryName, int id) {
 		this.name = name;
 		this.countryName = countryName;
+		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**
